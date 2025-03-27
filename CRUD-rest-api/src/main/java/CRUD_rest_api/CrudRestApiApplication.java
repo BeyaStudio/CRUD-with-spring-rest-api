@@ -50,19 +50,20 @@ public class CrudRestApiApplication {
 			
 			
 			//fetch an individual customer by ID
-			Customer customer = repository.findById(1L);
+			Customer customer = repository.findById(1L).get();
 			log.info("Customer found with findeById(1L):");
-			log.info(customer.toString());
 			log.info("-------------------------------");
-			
+			log.info(customer.toString());
+			log.info("");
 			
 		    // fetch customers by last name
 		    log.info("Customer found with findByLastName('Casadei'):");
 		    log.info("--------------------------------------------");
 			
-		    repository.findByLastName("Casadei").forEach(casadei -> {
-		    	log.info(casadei.toString());
-		    });
+			for (Customer casadei : repository
+					.findByLastNameStartsWithIgnoreCase("Casadei")) {
+				log.info(casadei.toString());
+			}
 
 		    log.info("");
 			
